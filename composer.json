@@ -1,0 +1,34 @@
+{
+    "name": "moun0023/sae2-01",
+    "description": "SAE Développement d'une application",
+    "type": "project",
+    "license": "WTFPL",
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Yacine Mounsi",
+            "email": "yacine.mounsi@etudiant.univ-reims.fr"
+        }
+    ],
+    "require": {
+        "ext-pdo": "*",
+        "behat/gherkin": "~4.12.0"
+    },
+    "scripts": {
+        "start:linux": [
+            "Composer\\Config::disableProcessTimeout",
+            "bin/run-server.sh"
+        ],
+        "start:windows": [
+            "Composer\\Config:disableProcessTimeout",
+            "bin/run-server.bat"
+        ],
+        "start": [
+            "@start:linux"
+        ]
+    }
+}
