@@ -10,7 +10,7 @@ use PDO;
 
 class CategoryCollection
 {
-    function findAll(): array
+    public static function findAll(): array
     {
         $Category = MyPDO::getInstance()->prepare(
             <<<'SQL'
