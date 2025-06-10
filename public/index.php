@@ -10,7 +10,7 @@ $title = 'Jeux Vidéo';
 
 $webPage = new AppWebPage($title);
 
-$webPage->appendContent("<h1>Genres</h1>");
+$webPage->appendContent("<h2>Genres</h2>");
 
 $videoGames = GenreCollection::findAll();
 
@@ -21,7 +21,7 @@ foreach($videoGames as $game) {
     $webPage->appendContent("<p><a href='Jeux.php?Id={$id}'>{$correctLine}</a></p>");
 }
 
-$webPage->appendContent("<h1>Catégories</h1>");
+$webPage->appendContent("<h2>Catégories</h2>");
 
 $videoGames = CategoryCollection::findAll();
 
