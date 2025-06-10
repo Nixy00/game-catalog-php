@@ -8,15 +8,15 @@ class Game
 {
     private int $id;
     private string $name;
-    private int $releaseYear;
+    protected int $releaseYear;
     private string $shortDescription;
-    private int $price;
-    private int $windows;
-    private int $linux;
-    private int $mac;
-    private int $metacritic;
-    private int $developerId;
-    private int $posterId;
+    protected int $price;
+    protected int $windows;
+    protected int $linux;
+    protected int $mac;
+    protected int $metacritic;
+    protected int $developerId;
+    protected int $posterId;
 
     public function getId(): int
     {
