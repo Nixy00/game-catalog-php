@@ -167,6 +167,7 @@ class WebPage
      */
     public function getLastModification()
     {
+        date_default_timezone_set('Europe/Paris');
         return date("F d Y H:i:s.", getlastmod());
     }
 }
