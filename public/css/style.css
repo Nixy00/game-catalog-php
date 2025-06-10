@@ -1,0 +1,47 @@
+html, body {
+    flex: 1;
+}
+
+.header {
+    display: flex;
+    flex: auto;
+    border: 1px solid black;
+    text-align: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: auto;
+    margin: 20px;
+}
+
+h1 {
+    text-align: center;
+    color:black;
+    flex:auto;
+}
+
+.content {
+    flex: auto;
+    flex-direction: column;
+    margin: 20px;
+}
+
+
+.list {
+    text-align: left;
+    display: flex;
+    border: 1px solid black;
+    flex-direction: column;
+    flex: 1;
+    padding: 5px;
+    height: 80vh;
+    overflow: scroll;
+}
+
+.footer {
+    flex: auto;
+    border: 1px solid black;
+    flex-direction: column;
+    margin: 20px;
+    padding: 5px;
+}
