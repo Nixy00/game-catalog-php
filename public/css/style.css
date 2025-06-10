@@ -1,5 +1,13 @@
 html, body {
-    flex: 1;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    max-width: 1400px;
+    max-height: 800px;
+}
+
+*{
+    box-sizing: border-box;
 }
 
 .header {
@@ -11,7 +19,7 @@ html, body {
     flex-wrap: wrap;
     justify-content: flex-start;
     width: auto;
-    margin: 20px;
+    padding: 5px;
 }
 
 h1 {
@@ -22,26 +30,32 @@ h1 {
 
 .content {
     flex: auto;
+    border: 1px solid black;
     flex-direction: column;
-    margin: 20px;
+    padding: 5px;
 }
 
 
 .list {
-    text-align: left;
     display: flex;
+    margin: 5px;
     border: 1px solid black;
     flex-direction: column;
     flex: 1;
     padding: 5px;
     height: 80vh;
     overflow: scroll;
+    p{
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 20px;
+    }
 }
 
 .footer {
     flex: auto;
     border: 1px solid black;
     flex-direction: column;
-    margin: 20px;
+    text-align: center;
     padding: 5px;
 }
