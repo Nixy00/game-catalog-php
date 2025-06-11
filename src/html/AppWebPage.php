@@ -21,16 +21,13 @@ class AppWebPage extends WebPage
                 <meta http-equiv="X-UA-Compatible" content="ie=edge">
                 <title>{$this->getTitle()}</title>
                 {$this->getHead()}
-                <link rel='stylesheet' href='css/style.css'>
             </head>
             <body>
             <header class="header">
                 <h1>{$this->getTitle()}</h1>
             </header>
             <div class="content">
-            <div class="list">
                 {$this->getBody()}
-            </div>
             </div>
             <footer class="footer">
                 <p>Dernière modification : {$this->getLastModification()}</p>
