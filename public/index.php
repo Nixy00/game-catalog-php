@@ -10,7 +10,9 @@ $title = 'Jeux Vidéo';
 
 $webPage = new AppWebPage($title);
 
-$webPage->appendContent("<h2>Genres</h2>");
+$webPage->appendCssUrl('/css/style.css');
+
+$webPage->appendContent("<div class='row'><h2>Genres</h2>");
 
 $videoGames = GenreCollection::findAll();
 
@@ -18,10 +20,10 @@ foreach($videoGames as $game) {
     $name = $game->getDescription();
     $id = $game->getId();
     $correctLine = $webPage->escapeString($name);
-    $webPage->appendContent("<p><a href='Jeux.php?Id={$id}'>{$correctLine}</a></p>");
+    $webPage->appendContent("<p><a class='bouton' href='Jeux.php?Id={$id}'>{$correctLine}</a></p>");
 }
 
-$webPage->appendContent("<h2>Catégories</h2>");
+$webPage->appendContent("</div><div class='row'><h2>Catégories</h2>");
 
 $videoGames = CategoryCollection::findAll();
 
@@ -29,7 +31,9 @@ foreach($videoGames as $game){
     $name = $game->getDescription();
     $id = $game->getId();
     $correctLine = $webPage->escapeString($name);
-    $webPage->appendContent("<p><a href='Jeux.php?Id={$id}'>{$correctLine}</a></p>");
+    $webPage->appendContent("<p><a class='bouton' href='Jeux.php?Id={$id}'>{$correctLine}</a></p>");
 }
+
+$webPage->appendContent("</div>");
 
 echo $webPage->toHTML();
