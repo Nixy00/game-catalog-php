@@ -26,6 +26,8 @@ $WebPage = new AppWebPage();
 $title = $WebPage->escapeString($genre->getDescription());
 $WebPage->setTitle('Jeux vidéo : ' . $title);
 
+$WebPage->appendCssUrl('/css/style_page1.css');
+
 $WebPage->appendContent('<div class="section">');
 $WebPage->appendContent('<h2 class="section-title">Genres</h2>');
 $WebPage->appendContent('<div class="list">');
