@@ -19,4 +19,9 @@ class Game_genre
         return $this->genreId;
     }
 
+    public function getGenre(): Genre
+    {
+        return Genre::findById($this->getGenreId());
+    }
+
 }
