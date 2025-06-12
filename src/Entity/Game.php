@@ -62,12 +62,12 @@ class Game
         return $this->mac;
     }
 
-    public function getMetacritic(): int
+    public function getMetacritic(): int|null
     {
         return $this->metacritic;
     }
 
-    public function getDeveloperId(): int
+    public function getDeveloperId(): int|null
     {
         return $this->developerId;
     }
@@ -80,7 +80,7 @@ class Game
     {
         $stmt = MyPdo::getInstance()->prepare(
             <<<SQL
-            SELECT id, name, releaseYear, shortDescription, price, windows, linux, mac, metacritic
+            SELECT id, name, releaseYear, shortDescription, price, windows, linux, mac, metacritic, posterId, developerId
             FROM game
             WHERE id = :id
         SQL
@@ -98,7 +98,7 @@ class Game
     {
         $stmt = MyPdo::getInstance()->prepare(
             <<<SQL
-            SELECT *
+            SELECT id, description
             FROM category
             JOIN game_category ON category.id = game_category.categoryId
             WHERE game_category.gameId = :id
@@ -106,7 +106,7 @@ class Game
         );
 
         $stmt->execute(['id' => $this->getId()]);
-        $stmt->setFetchMode(PDO::FETCH_CLASS, Game::class);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Category::class);
         $category = $stmt->fetchAll();
 
         if (!$category) {
@@ -120,7 +120,7 @@ class Game
     {
         $stmt = MyPdo::getInstance()->prepare(
             <<<SQL
-            SELECT * 
+            SELECT id, description 
             FROM genre
             JOIN game_genre ON genre.id = game_genre.genreId
             WHERE game_genre.gameId = :id
@@ -128,7 +128,7 @@ class Game
         );
 
         $stmt->execute(['id' => $this->getId()]);
-        $stmt->setFetchMode(PDO::FETCH_CLASS, Game::class);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Genre::class);
         $genre = $stmt->fetchAll();
 
         if (!$genre) {
