@@ -93,4 +93,47 @@ class Game
         }
         return $game;
     }
+
+    public function getAllCategory(): array
+    {
+        $stmt = MyPdo::getInstance()->prepare(
+            <<<SQL
+            SELECT *
+            FROM category
+            JOIN game_category ON category.id = game_category.categoryId
+            WHERE game_category.gameId = :id
+        SQL
+        );
+
+        $stmt->execute(['id' => $this->getId()]);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Game::class);
+        $category = $stmt->fetchAll();
+
+        if (!$category) {
+            throw new EntityNotFoundException("Le jeu avec la catégorie avec l’ID : " . $this->getId() . "est introuvable");
+        }
+
+        return $category;
+    }
+
+    public function getAllGenres(): array
+    {
+        $stmt = MyPdo::getInstance()->prepare(
+            <<<SQL
+            SELECT
+            FROM genre
+            JOIN game_genre ON genre.id = game_genre.genreId
+            WHERE game_genre.gameId = :id
+        SQL
+        );
+
+        $stmt->execute(['id' => $this->getId()]);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Game::class);
+        $genre = $stmt->fetchAll();
+
+        if (!$genre) {
+            throw new EntityNotFoundException("Le jeu avec l'ID : " . $this->getId() . "est introuvable");
+        }
+        return $genre;
+    }
 }
