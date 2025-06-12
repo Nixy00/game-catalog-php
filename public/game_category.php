@@ -23,7 +23,7 @@ try {
 
 $WebPage = new AppWebPage();
 
-$WebPage->appendCssUrl('/css/style_page1.css');
+$WebPage->appendCssUrl('/css/style_page2.css');
 
 $title = $WebPage->escapeString($category->getDescription());
 $WebPage->setTitle('Jeux vidéo : ' . $title);
