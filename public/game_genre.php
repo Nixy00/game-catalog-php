@@ -14,9 +14,9 @@ if (!isset($_GET['genreId']) || !is_numeric($_GET['genreId']) || (int)$_GET['gen
     exit();
 }
 
-$genreId = (int)$_GET['genreId'];
-
 $genre = null;
+
+$genreId = (int)$_GET['genreId'];
 
 try {
     $genre = Genre::findById($genreId);
@@ -25,9 +25,10 @@ try {
     exit("Genre non trouvé.");
 }
 
-$title = 'Jeux Vidéo : le genre';
 
-$webPage = new AppWebPage($title);
+
+$webPage = new AppWebPage();
+$webPage->setTitle("Jeux vidéo :" . $genreId);
 
 $webPage->appendCssUrl('/css/style_page2.css');
 
