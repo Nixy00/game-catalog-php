@@ -79,7 +79,7 @@ class Game
     {
         $game = MyPDO::getInstance()->prepare(
             <<<'SQL'
-            SELECT name, releaseYear
+            SELECT *
             FROM game
             WHERE id = :id
             SQL
