@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Entity;
 
+use Database\MyPdo;
+use PDO;
+
 class Game
 {
     private int $id;
@@ -71,5 +74,17 @@ class Game
     public function getPosterId(): int
     {
         return $this->posterId;
+    }
+    public static function findByGameId(int $id): Game
+    {
+        $game = MyPDO::getInstance()->prepare(
+            <<<'SQL'
+            SELECT name, releaseYear
+            FROM game
+            WHERE id = :id
+            SQL
+        );
+        $game->execute([':id' => $id]);
+        return $game->fetchObject(Game::class);
     }
 }
