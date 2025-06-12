@@ -32,7 +32,7 @@ class GameCollection
     {
         $stmt = MyPdo::getInstance()->prepare(
             <<<SQL
-            SELECT *
+            SELECT id, name, releaseYear, shortDescription, price, windows, linux, mac, metacritic, posterId
             FROM game
             JOIN game_genre ON game.id = game_genre.gameId
             WHERE game_genre.genreId = :id
@@ -48,7 +48,7 @@ class GameCollection
     {
         $stmt = MyPdo::getInstance()->prepare(
             <<<SQL
-            SELECT *
+            SELECT id, name, releaseYear, shortDescription, price, windows, linux, mac, metacritic, posterId
             FROM game
             WHERE id = :id
         SQL
