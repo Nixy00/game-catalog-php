@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Entity\Collection\GameCollection;
+use Entity\Exception\EntityNotFoundException;
 use Entity\Genre;
 use html\AppWebPage;
 
@@ -15,8 +16,8 @@ $genreId = (int) $_GET['genreId'];
 
 try {
     $genre = Genre::findById($genreId);
-} catch (Entity\Exception\EntityNotFoundException $e) {
-    echo "Catégorie non trouvée pour l'ID : $genreId";
+} catch (EntityNotFoundException) {
+    echo "Genre non trouvée pour l'ID : $genreId";
     exit;
 }
 
