@@ -14,9 +14,9 @@ if (!isset($_GET['genreId']) || !is_numeric($_GET['genreId']) || (int)$_GET['gen
     exit();
 }
 
-$genre = null;
-
 $genreId = (int)$_GET['genreId'];
+
+$genre = null;
 
 try {
     $genre = Genre::findById($genreId);
@@ -25,20 +25,27 @@ try {
     exit("Genre non trouvé.");
 }
 
-
-
 $webPage = new AppWebPage();
-$webPage->setTitle("Jeux vidéo :" . $genreId);
+$name = $webPage->escapeString($genre->getDescription());
 
+$webPage->setTitle("Jeux vidéo :" . $name);
 $webPage->appendCssUrl('/css/style_page2.css');
 
-$videoGames = GameCollection::findAll();
+$videoGames = GameCollection::findByGenreId($genreId);
 
 foreach($videoGames as $game) {
-    $name = $game->getDescription();
-    $id = $game->getPosterId();
-    $correctLine = $webPage->escapeString($name);
-    $webPage->appendContent("<p><a class='bouton' href='game_genre.php?Id={$id}'>{$correctLine}</a></p>");
+    $game_name = $webPage->escapeString($game->getName());
+    $year = $game->getReleaseYear();
+    $game_description = $webPage->escapeString($game->getShortDescription());
+    $webPage->appendContent(
+        <<<HTML
+        <a class="game" href="game.php?gameId={$game->getId()}">
+        <h2>{$game_name} ({$year})</h2>
+            <p>{$game_description}</p>
+        </a>      
+HTML);
+
+
 }
 
 
