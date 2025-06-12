@@ -27,10 +27,10 @@ class Genre
             <<<SQL
             SELECT id
             FROM genre 
-            WHERE id = :genreId
+            WHERE id = :id
         SQL
         );
-        $stmt->execute([':genreId' => $id]);
+        $stmt->execute([':id' => $id]);
         $stmt->setFetchMode(\PDO::FETCH_CLASS, Genre::class);
         $data = $stmt->fetch();
         if (!$data) {
