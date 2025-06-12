@@ -20,7 +20,7 @@ foreach($videoGames as $game) {
     $name = $game->getDescription();
     $id = $game->getId();
     $correctLine = $webPage->escapeString($name);
-    $webPage->appendContent("<p><a class='bouton' href='genreJeux.php?Id={$id}'>{$correctLine}</a></p>");
+    $webPage->appendContent("<p><a class='bouton' href='game_genre.php?Id={$id}'>{$correctLine}</a></p>");
 }
 
 $webPage->appendContent("</div><div class='row'><h2>Catégories</h2>");
