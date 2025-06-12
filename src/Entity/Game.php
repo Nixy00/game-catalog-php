@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Entity;
 
 use Database\MyPdo;
+use Entity\Exception\EntityNotFoundException;
 use PDO;
 
 class Game
@@ -75,16 +76,21 @@ class Game
     {
         return $this->posterId;
     }
-    public static function findByGameId(int $id): Game
+    public static function findById(int $id): Game
     {
-        $game = MyPDO::getInstance()->prepare(
-            <<<'SQL'
-            SELECT name, releaseYear
+        $stmt = MyPdo::getInstance()->prepare(
+            <<<SQL
+            SELECT *
             FROM game
             WHERE id = :id
-            SQL
+        SQL
         );
-        $game->execute([':id' => $id]);
-        return $game->fetchObject(Game::class);
+        $stmt->execute([':id' => $id]);
+        $stmt->setFetchMode(\PDO::FETCH_CLASS, Game::class);
+        $game = $stmt->fetch();
+        if (!$game) {
+            throw new EntityNotFoundException("Aucun jeu avec l’ID $id");
+        }
+        return $game;
     }
 }
