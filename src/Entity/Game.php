@@ -18,8 +18,8 @@ class Game
     protected int $windows;
     protected int $linux;
     protected int $mac;
-    protected int $metacritic;
-    protected int $developerId;
+    protected ?int $metacritic;
+    protected ?int $developerId;
     protected int $posterId;
 
     public function getId(): int
@@ -80,7 +80,7 @@ class Game
     {
         $stmt = MyPdo::getInstance()->prepare(
             <<<SQL
-            SELECT *
+            SELECT id, name, releaseYear, shortDescription, price, windows, linux, mac, metacritic
             FROM game
             WHERE id = :id
         SQL
@@ -120,7 +120,7 @@ class Game
     {
         $stmt = MyPdo::getInstance()->prepare(
             <<<SQL
-            SELECT
+            SELECT * 
             FROM genre
             JOIN game_genre ON genre.id = game_genre.genreId
             WHERE game_genre.gameId = :id

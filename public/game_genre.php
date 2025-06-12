@@ -2,51 +2,50 @@
 
 declare(strict_types=1);
 
-use Entity\Collection\CategoryCollection;
 use Entity\Collection\GameCollection;
-use Entity\Collection\GenreCollection;
 use Entity\Exception\EntityNotFoundException;
 use Entity\Genre;
 use html\AppWebPage;
 
-if (!isset($_GET['genreId']) || !is_numeric($_GET['genreId']) || (int)$_GET['genreId'] <= 0) {
-    header('Location: index.php', true, 302);
-    exit();
+if (!isset($_GET['genreId']) || !ctype_digit($_GET['genreId'])) {
+    echo "Paramètre 'id' manquant ou invalide.";
+    exit;
 }
 
-$genreId = (int)$_GET['genreId'];
-
-$genre = null;
+$genreId = (int) $_GET['genreId'];
 
 try {
     $genre = Genre::findById($genreId);
-} catch(EntityNotFoundException) {
-    http_response_code(404);
-    exit("Genre non trouvé.");
+} catch (EntityNotFoundException) {
+    echo "Genre non trouvée pour l'ID : $genreId";
+    exit;
 }
 
-$webPage = new AppWebPage();
-$name = $webPage->escapeString($genre->getDescription());
 
-$webPage->setTitle("Jeux vidéo :" . $name);
-$webPage->appendCssUrl('/css/style_page2.css');
+$WebPage = new AppWebPage();
+$title = $WebPage->escapeString($genre->getDescription());
+$WebPage->setTitle('Jeux vidéo : ' . $title);
 
-$videoGames = GameCollection::findByGenreId($genreId);
+$WebPage->appendContent('<div class="section">');
+$WebPage->appendContent('<h2 class="section-title">Genres</h2>');
+$WebPage->appendContent('<div class="list">');
 
-foreach($videoGames as $game) {
-    $game_name = $webPage->escapeString($game->getName());
+foreach (GameCollection::findByGenreId($genreId) as $game) {
+    $id = $game->getId();
+    $posterId = $game->getPosterId();
+    $name = $WebPage->escapeString($game->getName());
     $year = $game->getReleaseYear();
-    $game_description = $webPage->escapeString($game->getShortDescription());
-    $webPage->appendContent(
-        <<<HTML
-        <a class="game" href="game.php?gameId={$game->getId()}">
-        <h2>{$game_name} ({$year})</h2>
-            <p>{$game_description}</p>
-        </a>      
-HTML);
+    $description = $game->getShortDescription();
 
-
+    $WebPage->appendContent(
+        "<a class='item-link' href='VideoGame.php?gameId={$id}'>
+                    <img class='poster' src='poster.php?posterId={$posterId}' alt='Poster de la série {$WebPage->escapeString($game->getName())}'/>
+                    <h4>{$name} ({$year})</h4>  
+                    <p>{$description}</p>
+                 </a>"
+    );
 }
 
+$WebPage->appendContent('</div></div>');
 
-echo $webPage->toHTML();
+echo $WebPage->toHTML();

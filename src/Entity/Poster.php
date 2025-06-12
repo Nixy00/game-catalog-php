@@ -26,10 +26,10 @@ class Poster
     {
         $stmt = MyPdo::getInstance()->prepare(
             <<<SQL
-            SELECT *
+            SELECT poster.id, jpeg
             FROM poster
             JOIN game ON game.posterId = poster.id
-            WHERE id = :id
+            WHERE poster.id = :id
         SQL
         );
         $stmt->execute([':id' => $id]);
