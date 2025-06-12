@@ -16,7 +16,8 @@
     ],
     "require": {
         "ext-pdo": "*",
-        "behat/gherkin": "~4.12.0"
+        "behat/gherkin": "~4.12.0",
+      "ext-ctype": "*"
     },
     "scripts": {
         "start:linux": [
