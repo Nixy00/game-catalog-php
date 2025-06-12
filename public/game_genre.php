@@ -19,7 +19,7 @@ $genreId = (int)$_GET['genreId'];
 $genre = null;
 
 try {
-    $genreId = Genre::findById($genreId);
+    $genre = Genre::findById($genreId);
 } catch(EntityNotFoundException) {
     http_response_code(404);
     exit("Genre non trouvé.");
@@ -28,5 +28,17 @@ try {
 $title = 'Jeux Vidéo : le genre';
 
 $webPage = new AppWebPage($title);
+
+$webPage->appendCssUrl('/css/style_page2.css');
+
+$videoGames = GameCollection::findAll();
+
+foreach($videoGames as $game) {
+    $name = $game->getDescription();
+    $id = $game->getPosterId();
+    $correctLine = $webPage->escapeString($name);
+    $webPage->appendContent("<p><a class='bouton' href='game_genre.php?Id={$id}'>{$correctLine}</a></p>");
+}
+
 
 echo $webPage->toHTML();
