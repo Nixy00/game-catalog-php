@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Entity;
 
-class poster
+use Database\MyPdo;
+use Entity\Exception\EntityNotFoundException;
+
+class Poster
 {
     private int $id;
     private string $jpeg;
@@ -14,8 +17,27 @@ class poster
         return $this->id;
     }
 
-    public function getName(): string
+    public function getJpeg(): string
     {
         return $this->jpeg;
+    }
+
+    public static function findById(int $id): Poster
+    {
+        $stmt = MyPdo::getInstance()->prepare(
+            <<<SQL
+            SELECT *
+            FROM poster
+            JOIN game ON game.posterId = poster.id
+            WHERE id = :id
+        SQL
+        );
+        $stmt->execute([':id' => $id]);
+        $stmt->setFetchMode(\PDO::FETCH_CLASS, Poster::class);
+        $poster = $stmt->fetch();
+        if (!$poster) {
+            throw new EntityNotFoundException("Aucun poster avec l’ID $id");
+        }
+        return $poster;
     }
 }

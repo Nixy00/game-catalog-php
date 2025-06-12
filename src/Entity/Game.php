@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Entity;
 
 use Database\MyPdo;
+use Entity\Exception\EntityNotFoundException;
 use PDO;
 
 class Game
@@ -75,16 +76,64 @@ class Game
     {
         return $this->posterId;
     }
-    public static function findByGameId(int $id): Game
+    public static function findById(int $id): Game
     {
-        $game = MyPDO::getInstance()->prepare(
-            <<<'SQL'
+        $stmt = MyPdo::getInstance()->prepare(
+            <<<SQL
             SELECT *
             FROM game
             WHERE id = :id
-            SQL
+        SQL
         );
-        $game->execute([':id' => $id]);
-        return $game->fetchObject(Game::class);
+        $stmt->execute([':id' => $id]);
+        $stmt->setFetchMode(\PDO::FETCH_CLASS, Game::class);
+        $game = $stmt->fetch();
+        if (!$game) {
+            throw new EntityNotFoundException("Aucun jeu avec l’ID $id");
+        }
+        return $game;
+    }
+
+    public function getAllCategory(): array
+    {
+        $stmt = MyPdo::getInstance()->prepare(
+            <<<SQL
+            SELECT *
+            FROM category
+            JOIN game_category ON category.id = game_category.categoryId
+            WHERE game_category.gameId = :id
+        SQL
+        );
+
+        $stmt->execute(['id' => $this->getId()]);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Game::class);
+        $category = $stmt->fetchAll();
+
+        if (!$category) {
+            throw new EntityNotFoundException("Le jeu avec la catégorie avec l’ID : " . $this->getId() . "est introuvable");
+        }
+
+        return $category;
+    }
+
+    public function getAllGenres(): array
+    {
+        $stmt = MyPdo::getInstance()->prepare(
+            <<<SQL
+            SELECT
+            FROM genre
+            JOIN game_genre ON genre.id = game_genre.genreId
+            WHERE game_genre.gameId = :id
+        SQL
+        );
+
+        $stmt->execute(['id' => $this->getId()]);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Game::class);
+        $genre = $stmt->fetchAll();
+
+        if (!$genre) {
+            throw new EntityNotFoundException("Le jeu avec l'ID : " . $this->getId() . "est introuvable");
+        }
+        return $genre;
     }
 }
