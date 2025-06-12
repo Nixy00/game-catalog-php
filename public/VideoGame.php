@@ -6,13 +6,14 @@ use Entity\Collection\CategoryCollection;
 use Entity\Collection\GenreCollection;
 use Entity\Collection\GameCollection;
 use Entity\Game;
+use Entity\Developer;
 use html\AppWebPage;
 
 $webPage = new AppWebPage();
 
 $gameId = (int) $_GET['id'];
 
-$game = Game::findByGameId($gameId);
+$game = Game::findById($gameId);
 
 $title = $game->getName();
 
@@ -36,5 +37,12 @@ if($game->getWindows() === 1){
     $webPage->appendContent("<img src='img/windows.svg'>");
 }
 */
+
+$developerId = $game->getDeveloperId();
+$developer = Developer::findById($developerId);
+
+$webPage->appendContent("<p>{$developer->getName()}</p>");
+
+
 
 echo $webPage->toHTML();

@@ -41,9 +41,7 @@ class GameCollection
         );
 
         $stmt->execute(['id' => $genreId]);
-        $stmt->setFetchMode(PDO::FETCH_CLASS, Game::class);
-
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, Game::class);
     }
 
     public static function findById(int $id): array
