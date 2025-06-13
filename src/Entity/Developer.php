@@ -56,4 +56,17 @@ class Developer
         }
         return $dev;
     }
+
+    public static function findAll(): array
+    {
+        $stmt = MyPdo::getInstance()->prepare(
+            <<<SQL
+        SELECT *
+        FROM developer
+        ORDER BY name
+    SQL
+        );
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_CLASS, self::class);
+    }
 }
