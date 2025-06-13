@@ -70,6 +70,11 @@ h1 {
     height: 100%;
 }
 
+.home{
+    width: 40px;
+    height: auto;
+}
+
 .game-item:hover {
     transform: scale(1.02);
     background-color: #3d4061;
