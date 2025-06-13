@@ -10,6 +10,10 @@ use PDO;
 
 class GenreCollection
 {
+    /**
+     * Cette fonction renvoie touts les genres disponibles dans la BD
+     * @return array
+     */
     public static function findAll(): array
     {
         $genre = MyPDO::getInstance()->prepare(

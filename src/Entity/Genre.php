@@ -9,18 +9,36 @@ use Entity\Exception\EntityNotFoundException;
 
 class Genre
 {
+    /**
+     * @var int
+     */
     private int $id;
+    /**
+     * @var string
+     */
     private string $description;
+
+    /**
+     * @return int
+     */
     public function getId(): int
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getDescription(): string
     {
         return $this->description;
     }
 
+    /**
+     * Cette fonction cherche un genre dans la base de données par son ID
+     * @param int $id
+     * @return Genre
+     */
     public static function findById(int $id): Genre
     {
         $stmt = MyPdo::getInstance()->prepare(

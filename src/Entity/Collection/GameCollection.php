@@ -10,6 +10,11 @@ use PDO;
 
 class GameCollection
 {
+    /**
+     * Cette fonction permet de chercher un jeu par sa catégorie
+     * @param int $categoryId
+     * @return array
+     */
     public static function findByCategoryId(int $categoryId): array
     {
         $stmt = MyPdo::getInstance()->prepare(
@@ -28,6 +33,11 @@ class GameCollection
         return $stmt->fetchAll();
     }
 
+    /**
+     * Cette fonction permet de chercher un jeu par son genre
+     * @param int $genreId
+     * @return array
+     */
     public static function findByGenreId(int $genreId): array
     {
         $stmt = MyPdo::getInstance()->prepare(
@@ -44,6 +54,11 @@ class GameCollection
         return $stmt->fetchAll(PDO::FETCH_CLASS, Game::class);
     }
 
+    /**
+     * Cette fonction cherche un jeu dans la base de données par son ID
+     * @param int $id
+     * @return array
+     */
     public static function findById(int $id): array
     {
         $stmt = MyPdo::getInstance()->prepare(

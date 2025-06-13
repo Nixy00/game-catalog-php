@@ -9,19 +9,36 @@ use Entity\Exception\EntityNotFoundException;
 
 class Poster
 {
+    /**
+     * @var int
+     */
     private int $id;
+    /**
+     * @var string
+     */
     private string $jpeg;
 
+    /**
+     * @return int
+     */
     public function getId(): int
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getJpeg(): string
     {
         return $this->jpeg;
     }
 
+    /**
+     * Cette fonction cherche un poster dans la base de données par son ID
+     * @param int $id
+     * @return Poster
+     */
     public static function findById(int $id): Poster
     {
         $stmt = MyPdo::getInstance()->prepare(
