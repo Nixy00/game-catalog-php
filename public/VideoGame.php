@@ -49,7 +49,8 @@ $webPage->appendContent("<h2>Catégories : </h2> <p> ");
 
 foreach($categories as $category){
     $name = $category->getDescription();
-    $webPage->appendContent("{$name}, ");
+    $id = $category->getId();
+    $webPage->appendContent("<a href='game_category.php?categoryId={$id}'> {$name} </a>");
 }
 
 $webPage->appendContent("</p>");
@@ -60,7 +61,8 @@ $webPage->appendContent("<h2>Genres : </h2> <p> ");
 
 foreach($genres as $genre){
     $name = $genre->getDescription();
-    $webPage->appendContent("{$name}, ");
+    $id = $genre->getId();
+    $webPage->appendContent("<a href='game_genre.php?genreId={$id}'> {$name} </a>");
 }
 
 $webPage->appendContent("</p>");
