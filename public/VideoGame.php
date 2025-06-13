@@ -67,9 +67,16 @@ else{
 
 $price = $game->getPrice() / 100;
 
+if($price == 0){
+    $price = 'Gratuit';
+}
+else{
+    $price = $game->getPrice() / 100 . '€';
+}
+
 $webPage->appendContent("<div class='note-price'>
     <p>Note : {$score}</p>
-    <p>Prix : {$price}€</p>
+    <p>Prix : {$price}</p>
 </div>");
 
 $webPage->appendContent("<div class='game-description'>{$game->getShortDescription()}</div>");
