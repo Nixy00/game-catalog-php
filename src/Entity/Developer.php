@@ -21,7 +21,7 @@ class Developer
     {
         return $this->name;
     }
-    public static function findById(int $id): Developer
+    public static function findById(int $id): Developer | null
     {
         $stmt = MyPdo::getInstance()->prepare(
             <<<SQL
