@@ -9,7 +9,7 @@ use html\AppWebPage;
 
 $webPage = new AppWebPage();
 
-$webPage->appendCssUrl('/css/style_page1.css');
+$webPage->appendCssUrl('/css/style_page3.css');
 
 $gameId = (int) $_GET['gameId'];
 
@@ -21,9 +21,17 @@ $title = $game->getName();
 $webPage->setTitle('Jeu Vidéo - ' . $title);
 
 $price = $game->getPrice() / 100;
+$score = $game->getMetacritic();
+if($score !== null){
+    $score = $score . '/100';
+}
+else{
+    $score = 'Pas de note';
+}
+
 
 $webPage->appendContent("<p>{$game->getReleaseYear()}</p>");
-$webPage->appendContent("<p>{$game->getMetacritic()}</p>");
+$webPage->appendContent("<p>{$score}</p>");
 $webPage->appendContent("<p>{$price}€</p>");
 $webPage->appendContent("<p>{$game->getShortDescription()}</p>");
 $webPage->appendContent("<div> <img class='poster' src='poster.php?posterId={$posterId}' alt='Poster de la série {$webPage->escapeString($game->getName())}'/> </div>");
@@ -43,7 +51,12 @@ if($game->getWindows() === 1){
 $developerId = $game->getDeveloperId();
 $developer = Developer::findById($developerId);
 
-$webPage->appendContent("<p>{$developer->getName()}</p>");
+$dev = $developer->getName();
+if($dev === null){
+    $dev = 'Non renseigné';
+}
+
+$webPage->appendContent("<p>Développeur : {$dev}</p>");
 
 $categories = $game->getAllCategory();
 
@@ -52,7 +65,7 @@ $webPage->appendContent("<h2>Catégories : </h2> <p> ");
 foreach($categories as $category){
     $name = $category->getDescription();
     $id = $category->getId();
-    $webPage->appendContent("<a href='game_category.php?categoryId={$id}'> {$name} </a>");
+    $webPage->appendContent("<a class='bouton' href='game_category.php?categoryId={$id}'> {$name} </a>");
 }
 
 $webPage->appendContent("</p>");
@@ -64,7 +77,7 @@ $webPage->appendContent("<h2>Genres : </h2> <p> ");
 foreach($genres as $genre){
     $name = $genre->getDescription();
     $id = $genre->getId();
-    $webPage->appendContent("<a href='game_genre.php?genreId={$id}'> {$name} </a>");
+    $webPage->appendContent("<a class='bouton' href='game_genre.php?genreId={$id}'> {$name} </a>");
 }
 
 $webPage->appendContent("</p>");
