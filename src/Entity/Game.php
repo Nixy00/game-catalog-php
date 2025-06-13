@@ -350,4 +350,21 @@ class Game
         }
         return $game;
     }
+
+    /**
+     * Cette fonction permet de supprimer un jeu de la base de données
+     * @return $this
+     */
+    public function delete(): Game
+    {
+        $deleteGame = MyPdo::getInstance()->prepare(
+            <<<SQL
+            DELETE FROM game
+            WHERE id = :game
+        SQL
+        );
+        $deleteGame->execute([':gameId' => $this->getId()]);
+        $this->setId((int)null);
+        return $this;
+    }
 }
