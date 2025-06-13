@@ -33,13 +33,7 @@ class Developer
     {
         return $this->name;
     }
-
-    /**
-     * Cette fonction cherche un développeur dans la base de données par son ID
-     * @param int $id
-     * @return Developer
-     */
-    public static function findById(int $id): Developer
+    public static function findById(int $id): Developer | null
     {
         $stmt = MyPdo::getInstance()->prepare(
             <<<SQL
