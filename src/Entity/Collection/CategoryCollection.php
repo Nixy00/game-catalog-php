@@ -10,6 +10,10 @@ use PDO;
 
 class CategoryCollection
 {
+    /**
+     * Cette fonction renvoie toutes les catégories disponibles dans la BD
+     * @return array
+     */
     public static function findAll(): array
     {
         $Category = MyPDO::getInstance()->prepare(

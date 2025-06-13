@@ -9,14 +9,26 @@ use Entity\Exception\EntityNotFoundException;
 
 class Developer
 {
+    /**
+     * @var int
+     */
     private int $id;
+    /**
+     * @var string
+     */
     private string $name;
 
+    /**
+     * @return int
+     */
     public function getId(): int
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getName(): string
     {
         return $this->name;
