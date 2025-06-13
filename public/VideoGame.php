@@ -9,6 +9,8 @@ use html\AppWebPage;
 
 $webPage = new AppWebPage();
 
+$webPage->appendCssUrl('/css/style_page1.css');
+
 $gameId = (int) $_GET['gameId'];
 
 
