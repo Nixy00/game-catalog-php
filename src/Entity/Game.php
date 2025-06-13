@@ -369,7 +369,7 @@ class Game
     }
 
     /**
-     * Cette fonction permet de modifier certains attributs d'un jeu dans la base de données
+     * Cette fonction permet de mettre a jour des attributs d'un jeu dans la base de données
      * @return $this
      */
     public function update(): Game
@@ -402,6 +402,33 @@ class Game
                             ':metacritic' => $this->getMetacritic(),
                             ':developerId' => $this->getDeveloperId(),
                             ':posterId' => $this->getPosterId()]);
+        return $this;
+    }
+
+    /**
+     * Cette fonction permet d'insérer des informations d'un jeu dans la base de données
+     * @return $this
+     */
+    protected function insert(): Game
+    {
+        $insertGame = MyPdo::getInstance()->prepare(
+            <<<SQL
+        INSERT INTO game
+        VALUES (:id,:name,:releaseYear,:shortDescription,:price, :windows, :linux, :mac, :metacritic, :developerId, :posterId)
+        SQL
+        );
+        $insertGame->execute([':id' => $this->getId(),
+                              ':name' => $this->getName(),
+                              ':releaseYear' => $this->getReleaseYear(),
+                              ':shortDescription' => $this->getShortDescription(),
+                              ':price' => $this->getPrice(),
+                              ':windows' => $this->getWindows(),
+                              ':linux' => $this->getLinux(),
+                              ':mac' => $this->getMac(),
+                              ':metacritic' => $this->getMetacritic(),
+                              ':developerId' => $this->getDeveloperId(),
+                              ':posterId' => $this->getPosterId()]);
+        $this->setId(intval((MyPdo::getInstance()->lastInsertId())));
         return $this;
     }
 }
