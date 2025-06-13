@@ -318,4 +318,36 @@ class Game
     {
         $this->posterId = $posterId;
     }
+
+    /**
+     * Cette fonction permet de créer un jeu dans la base de données
+     * @param string $name
+     * @param int $releaseYear
+     * @param string $shortDescription
+     * @param int $price
+     * @param int $windows
+     * @param int $linux
+     * @param int $mac
+     * @param int $developerId
+     * @param int $posterId
+     * @param int|null $id
+     * @return Game
+     */
+    public static function create(string $name, int $releaseYear, string $shortDescription, int $price, int $windows, int $linux, int $mac, int $developerId , int $posterId, ?int $id): Game
+    {
+        $game = new Game();
+        $game->setName($name);
+        $game->setReleaseYear($releaseYear);
+        $game->setShortDescription($shortDescription);
+        $game->setPrice($price);
+        $game->setWindows($windows);
+        $game->setLinux($linux);
+        $game->setMac($mac);
+        $game->setDeveloperId($developerId);
+        $game->setPosterId($posterId);
+        if (isset($id)) {
+            $game->setId($id);
+        }
+        return $game;
+    }
 }
