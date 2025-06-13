@@ -124,6 +124,11 @@ a:visited {
     gap: 10px;
 }
 
+.home{
+    width: 40px;
+    height: auto;
+}
+
 .release-year {
     margin: 0;
     background-color: #363957;

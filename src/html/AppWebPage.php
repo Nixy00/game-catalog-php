@@ -25,6 +25,7 @@ class AppWebPage extends WebPage
             <body>
             <header class="header">
                 <h1>{$this->getTitle()}</h1>
+                <a href="index.php"><img class="home" src="img/house-chimney-solid.svg" alt="Retour vers la page principale"></a>
             </header>
             <div class="content">
                 {$this->getBody()}

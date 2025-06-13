@@ -12,15 +12,21 @@ html, body {
     box-sizing: border-box;
 }
 
+.home{
+    width: 40px;
+    height: auto;
+}
+
 .header {
     display: flex;
-    flex: auto;
-    text-align: center;
-    width: auto;
+    justify-content: center;
+    align-items: center;
     padding: 5px;
     background-color: #4e4f70;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    text-align: center;
+    width: auto;
 }
 
 h1 {
@@ -41,18 +47,6 @@ h2 {
     padding: 10px;
     overflow-y: auto;
     background-color: #21223c;
-    p{
-        border-radius: 10px;
-        padding: 20px;
-        background-color: #363957;
-        cursor: pointer;
-    }
-    p:hover {
-        transition: ease-in-out 25ms;
-        transform: scale(1.02);
-        background-color: #3d4061;
-        box-shadow: 0 4px 15px #23244e;
-    }
 }
 
 a:link
@@ -68,6 +62,16 @@ a:visited
 
 .bouton {
     display: block;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #363957;
+    cursor: pointer;
+}
+.bouton:hover {
+    transition: ease-in-out 25ms;
+    transform: scale(1.02);
+    background-color: #3d4061;
+    box-shadow: 0 4px 15px #23244e;
 }
 
 .row {
