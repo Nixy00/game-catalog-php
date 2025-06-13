@@ -41,6 +41,10 @@ Windows :
 
 #### Configuration de la base de données
 
+Vous devrez préalablement copier-coller la base de donnée de Mr Cutrona. Les détails pour copier-coller cette BD est disponible ici, suivez bien les étapes : http://cutrona/but/s2/php-crud-music/creation-edition-suppression-formulaires.php#copie-de-la-base-de-donnees
+
+Attention à bien copier-coller la base cutron01_game et non cutron01_music.*
+
 Le fichier .mypdo.ini permet de configurer l'accès à la base de données sans devoir modifier le code source.
 
 Pour avoir accès au site internet, il faudra créer dans la racine du projet un fichier .mypdo.ini.
