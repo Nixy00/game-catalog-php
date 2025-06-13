@@ -431,4 +431,18 @@ class Game
         $this->setId(intval((MyPdo::getInstance()->lastInsertId())));
         return $this;
     }
+
+    /**
+     * Cette fonction permet de confirmer la création, suppression, modification d'un jeu dans la base de données
+     * @return $this
+     */
+    public function save(): Game
+    {
+        if ($this->getId() === null) {
+            $this->insert();
+        } else {
+            $this->update();
+        }
+        return $this;
+    }
 }
