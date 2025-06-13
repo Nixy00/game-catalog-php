@@ -8,6 +8,9 @@ use Database\MyPdo;
 use Entity\Exception\EntityNotFoundException;
 use PDO;
 
+/**
+ *
+ */
 class Game
 {
     /**
@@ -215,5 +218,231 @@ class Game
             throw new EntityNotFoundException("Le jeu avec l'ID : " . $this->getId() . "est introuvable");
         }
         return $genre;
+    }
+
+    /**
+     * @param int $id
+     * @return void
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @param string $name
+     * @return void
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @param int $releaseYear
+     * @return void
+     */
+    public function setReleaseYear(int $releaseYear): void
+    {
+        $this->releaseYear = $releaseYear;
+    }
+
+    /**
+     * @param string $shortDescription
+     * @return void
+     */
+    public function setShortDescription(string $shortDescription): void
+    {
+        $this->shortDescription = $shortDescription;
+    }
+
+    /**
+     * @param int $price
+     * @return void
+     */
+    public function setPrice(int $price): void
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * @param int $windows
+     * @return void
+     */
+    public function setWindows(int $windows): void
+    {
+        $this->windows = $windows;
+    }
+
+    /**
+     * @param int $linux
+     * @return void
+     */
+    public function setLinux(int $linux): void
+    {
+        $this->linux = $linux;
+    }
+
+    /**
+     * @param int $mac
+     * @return void
+     */
+    public function setMac(int $mac): void
+    {
+        $this->mac = $mac;
+    }
+
+    /**
+     * @param int|null $metacritic
+     * @return void
+     */
+    public function setMetacritic(?int $metacritic): void
+    {
+        $this->metacritic = $metacritic;
+    }
+
+    /**
+     * @param int|null $developerId
+     * @return void
+     */
+    public function setDeveloperId(?int $developerId): void
+    {
+        $this->developerId = $developerId;
+    }
+
+    /**
+     * @param int $posterId
+     * @return void
+     */
+    public function setPosterId(int $posterId): void
+    {
+        $this->posterId = $posterId;
+    }
+
+    /**
+     * Cette fonction permet de créer un jeu dans la base de données
+     * @param string $name
+     * @param int $releaseYear
+     * @param string $shortDescription
+     * @param int $price
+     * @param int $windows
+     * @param int $linux
+     * @param int $mac
+     * @param int $developerId
+     * @param int $posterId
+     * @param int|null $id
+     * @return Game
+     */
+    public static function create(string $name, int $releaseYear, string $shortDescription, int $price, int $windows, int $linux, int $mac, int $developerId , int $posterId, ?int $id): Game
+    {
+        $game = new Game();
+        $game->setName($name);
+        $game->setReleaseYear($releaseYear);
+        $game->setShortDescription($shortDescription);
+        $game->setPrice($price);
+        $game->setWindows($windows);
+        $game->setLinux($linux);
+        $game->setMac($mac);
+        $game->setDeveloperId($developerId);
+        $game->setPosterId($posterId);
+        if (isset($id)) {
+            $game->setId($id);
+        }
+        return $game;
+    }
+
+    /**
+     * Cette fonction permet de supprimer un jeu de la base de données
+     * @return $this
+     */
+    public function delete(): Game
+    {
+        $deleteGame = MyPdo::getInstance()->prepare(
+            <<<SQL
+            DELETE FROM game
+            WHERE id = :game
+        SQL
+        );
+        $deleteGame->execute([':gameId' => $this->getId()]);
+        $this->setId((int)null);
+        return $this;
+    }
+
+    /**
+     * Cette fonction permet de mettre a jour des attributs d'un jeu dans la base de données
+     * @return $this
+     */
+    public function update(): Game
+    {
+        $saveGame = MyPdo::getInstance()->prepare(
+            <<<SQL
+            UPDATE game
+            SET id = :id,
+            name = :name,
+            releaseYear = :releaseYear,
+            shortDescription = :shortDescription,
+            price = :price,
+            windows = :windows,
+            linux = :linux,
+            mac = :mac,
+            metacritic = :metacritic,
+            developerId = :developerId,
+            posterId = :posterId
+            WHERE id = :id
+        SQL
+        );
+        $saveGame->execute([':id' => $this->getId(),
+                            ':name' => $this->getName(),
+                            ':releaseYear' => $this->getReleaseYear(),
+                            ':shortDescription' => $this->getShortDescription(),
+                            ':price' => $this->getPrice(),
+                            ':windows' => $this->getWindows(),
+                            ':linux' => $this->getLinux(),
+                            ':mac' => $this->getMac(),
+                            ':metacritic' => $this->getMetacritic(),
+                            ':developerId' => $this->getDeveloperId(),
+                            ':posterId' => $this->getPosterId()]);
+        return $this;
+    }
+
+    /**
+     * Cette fonction permet d'insérer des informations d'un jeu dans la base de données
+     * @return $this
+     */
+    protected function insert(): Game
+    {
+        $insertGame = MyPdo::getInstance()->prepare(
+            <<<SQL
+        INSERT INTO game
+        VALUES (:id,:name,:releaseYear,:shortDescription,:price, :windows, :linux, :mac, :metacritic, :developerId, :posterId)
+        SQL
+        );
+        $insertGame->execute([':id' => $this->getId(),
+                              ':name' => $this->getName(),
+                              ':releaseYear' => $this->getReleaseYear(),
+                              ':shortDescription' => $this->getShortDescription(),
+                              ':price' => $this->getPrice(),
+                              ':windows' => $this->getWindows(),
+                              ':linux' => $this->getLinux(),
+                              ':mac' => $this->getMac(),
+                              ':metacritic' => $this->getMetacritic(),
+                              ':developerId' => $this->getDeveloperId(),
+                              ':posterId' => $this->getPosterId()]);
+        $this->setId(intval((MyPdo::getInstance()->lastInsertId())));
+        return $this;
+    }
+
+    /**
+     * Cette fonction permet de confirmer la création, suppression, modification d'un jeu dans la base de données
+     * @return $this
+     */
+    public function save(): Game
+    {
+        if ($this->getId() === null) {
+            $this->insert();
+        } else {
+            $this->update();
+        }
+        return $this;
     }
 }
