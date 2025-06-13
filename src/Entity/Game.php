@@ -367,4 +367,41 @@ class Game
         $this->setId((int)null);
         return $this;
     }
+
+    /**
+     * Cette fonction permet de modifier certains attributs d'un jeu dans la base de données
+     * @return $this
+     */
+    public function update(): Game
+    {
+        $saveGame = MyPdo::getInstance()->prepare(
+            <<<SQL
+            UPDATE game
+            SET id = :id,
+            name = :name,
+            releaseYear = :releaseYear,
+            shortDescription = :shortDescription,
+            price = :price,
+            windows = :windows,
+            linux = :linux,
+            mac = :mac,
+            metacritic = :metacritic,
+            developerId = :developerId,
+            posterId = :posterId
+            WHERE id = :id
+        SQL
+        );
+        $saveGame->execute([':id' => $this->getId(),
+                            ':name' => $this->getName(),
+                            ':releaseYear' => $this->getReleaseYear(),
+                            ':shortDescription' => $this->getShortDescription(),
+                            ':price' => $this->getPrice(),
+                            ':windows' => $this->getWindows(),
+                            ':linux' => $this->getLinux(),
+                            ':mac' => $this->getMac(),
+                            ':metacritic' => $this->getMetacritic(),
+                            ':developerId' => $this->getDeveloperId(),
+                            ':posterId' => $this->getPosterId()]);
+        return $this;
+    }
 }
