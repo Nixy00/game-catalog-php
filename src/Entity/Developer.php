@@ -9,18 +9,36 @@ use Entity\Exception\EntityNotFoundException;
 
 class Developer
 {
+    /**
+     * @var int
+     */
     private int $id;
+    /**
+     * @var string
+     */
     private string $name;
 
+    /**
+     * @return int
+     */
     public function getId(): int
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getName(): string
     {
         return $this->name;
     }
+
+    /**
+     * Cette fonction cherche un développeur dans la base de données par son ID
+     * @param int $id
+     * @return Developer
+     */
     public static function findById(int $id): Developer
     {
         $stmt = MyPdo::getInstance()->prepare(
