@@ -10,72 +10,144 @@ use PDO;
 
 class Game
 {
+    /**
+     * @var int
+     */
     private int $id;
+    /**
+     * @var string
+     */
     private string $name;
+    /**
+     * @var int
+     */
     protected int $releaseYear;
+    /**
+     * @var string
+     */
     private string $shortDescription;
+    /**
+     * @var int
+     */
     protected int $price;
+    /**
+     * @var int
+     */
     protected int $windows;
+    /**
+     * @var int
+     */
     protected int $linux;
+    /**
+     * @var int
+     */
     protected int $mac;
+    /**
+     * @var int|null
+     */
     protected ?int $metacritic;
+    /**
+     * @var int|null
+     */
     protected ?int $developerId;
+    /**
+     * @var int
+     */
     protected int $posterId;
 
+    /**
+     * @return int
+     */
     public function getId(): int
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getName(): string
     {
         return $this->name;
     }
 
+    /**
+     * @return int
+     */
     public function getReleaseYear(): int
     {
         return $this->releaseYear;
     }
 
+    /**
+     * @return string
+     */
     public function getShortDescription(): string
     {
         return $this->shortDescription;
     }
 
+    /**
+     * @return int
+     */
     public function getPrice(): int
     {
         return $this->price;
     }
 
+    /**
+     * @return int
+     */
     public function getWindows(): int
     {
         return $this->windows;
     }
 
+    /**
+     * @return int
+     */
     public function getLinux(): int
     {
         return $this->linux;
     }
 
+    /**
+     * @return int
+     */
     public function getMac(): int
     {
         return $this->mac;
     }
 
+    /**
+     * @return int|null
+     */
     public function getMetacritic(): int|null
     {
         return $this->metacritic;
     }
 
+    /**
+     * @return int|null
+     */
     public function getDeveloperId(): int|null
     {
         return $this->developerId;
     }
 
+    /**
+     * @return int
+     */
     public function getPosterId(): int
     {
         return $this->posterId;
     }
+
+    /**
+     * Cette fonction cherche un jeu dans la base de données par son ID
+     * @param int $id
+     * @return Game
+     */
     public static function findById(int $id): Game
     {
         $stmt = MyPdo::getInstance()->prepare(
@@ -94,6 +166,10 @@ class Game
         return $game;
     }
 
+    /**
+     * Cette fonction retourne toutes les catégories d'un jeu
+     * @return array
+     */
     public function getAllCategory(): array
     {
         $stmt = MyPdo::getInstance()->prepare(
@@ -116,6 +192,10 @@ class Game
         return $category;
     }
 
+    /**
+     * Cette fonction retourne touts les genres d'un jeu
+     * @return array
+     */
     public function getAllGenres(): array
     {
         $stmt = MyPdo::getInstance()->prepare(
